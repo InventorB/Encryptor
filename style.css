@@ -1,0 +1,45 @@
+h1 {
+    color:darkgreen;
+    font-family:Montserrat;
+    font-size: 38px;
+}
+h4,h2 {
+    color: red;
+    font-family:Inter;
+    font-size: 20px;
+}
+b,p {
+    font-family:Inter;
+    font-size: 20px;
+}
+button,textarea {
+    background: rgb(0,255,11);
+    background: linear-gradient(45deg, rgba(0,255,11,0.8297852588300946) 0%, rgba(0,94,173,1) 50%, rgba(255,0,91,1) 100%);
+    color:white;
+    padding:8
+}
+button {
+    border-radius: 5px;
+    font-size: 20px;
+    border-color: white;
+
+}
+textarea {
+    font-size: 17px;
+    border-color: white;
+    border-style: solid;
+
+}
+body {
+    background-color:lightcoral;
+    text-align:center; 
+}
+@font-face {
+    font-family: 'Inter';
+    src: url('fonts/Inter.ttf');
+  }
+@font-face {
+font-family: 'Montserrat';
+src: url('fonts/Montserrat.ttf');
+}
+  

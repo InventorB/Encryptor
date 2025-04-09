@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <!--Make viewing on ios better-->
+        <meta name = "viewport" content = "width = device-width">
+        <!--Header-->
+        <h1>Secure Key Generator</h1>
+        <!--Subheader-->
+        <h2 id="h3">Step Two</h2>
+        <link rel="stylesheet" href="style.css" type="text/css">
+        
+    </head>
+
+    <body>
+        <!--Instructions on what to after. Hidden for now but will be used later.-->
+        <p hidden id = "step0";>Thank you for completing this encryptor.</p>
+        <p hidden id = "step1";>If both of you have followed these steps properly you both should have arrived at the same code. </p>
+        <p hidden id = "step2";>If anyone intercepted you communications they could not achieve this code.</p>
+        <p hidden id = "step3";>You can now use this for my other projects like my encryptor.</p>
+        <!--Asks user for private number in box-->
+        <p id = "privatenotice";>Please input your private number-THAT YOU INPUTTED AND MEMORIZED in step 1.</p>
+        <!--Box to fill private number-->
+        <textarea rows = "1" cols = "22" id="privatenumber" onclick=resetfield("privatenumber");>YOUR PRIVATE NUMBER.</textarea>
+        <!--Asks user to fill public number.-->
+        <p id = "publicnotice";>Please input THEIR public number-THE ONE THAT THEY SENT TO YOU. DON'T INPUT YOURS!</p>
+        <!--Box for public number-->
+        <textarea rows = "1" cols = "22" id="publicnumber" onclick=resetfield("publicnumber");>THEIR PUBLIC NUMBER</textarea>
+        <br>
+        <!--Stores result-->
+        <p hidden id = "result";>dormant for now</p>
+        <!--Line break. Has id so it can be modified later.-->
+        <br id="lines1">
+        <!--Button to encrypt function-->
+        <button type="button" id="encryptbutton" onclick=encrypt();>Encrypt</button>
+        <!--Second line break with id function-->
+        <br id="lines2">
+        <!--Button to redirect user home-->
+        <button type="button" onclick=redirect("Home.html");>Home</button>
+        <!--Button to open my other encryptor project-->
+        <button hidden id=totheencryptor type="button" onclick=redirect("Encryptor.html");>To the Encryptor!</button>
+        <br>
+        
+        
+       
+    </body>
+    <script> 
+    function redirect(url) {
+        // Takes a url as a parameter and redirects the page to that url
+        // A input of "Home.html" in the "EncryptionProject/" folder redirects on the codehs.me site to 
+        // bradenwagner.codehs.me/EncryptionProject/Home.html
+        window.location.href=url;
+    }
+    function resetfield(number) {
+        // Alphabet is the internal name for the text if the box should be cleared.
+        // Since both boxes with start with "NUMBER" the both can
+        var alphabet = "NUMBER"
+        // Field stores the text box
+        // Number is the variable passed in with the id of the text box to clear and look at
+        var field = "" + document.getElementById(number).value
+        // If condition text is in box, clear it
+        if (field.indexOf(alphabet) > -1) {
+            // Clear text
+            document.getElementById(number).value = ""  
+        } else {
+            // Otherwise leave a note in the console and do nothing
+            console.log("Field not changed");
+            }
+        }
+        function encrypt() {
+            // Second encryptor does the math privatenum^publicnum MOD 99999
+            //-------------------------------
+            // Get both boxes (private and public) and make them BigInt's
+            var privatenum = BigInt(document.getElementById("privatenumber").value);
+            var publicnum = BigInt(document.getElementById("publicnumber").value);
+            // Make the modulus a bigint
+            var MODULUS = BigInt(99999);
+            if (privatenum <= 99999 && privatenum >=1 && publicnum <= 99999 && privatenum >= 1) {
+                // Multiply publicnum ^ privatenum
+                var stepone = publicnum ** privatenum;
+                // Then take modulus of the multiplication
+                var sharedsecretB = BigInt(stepone) % MODULUS;
+                // Make sharedsecret a number so it is just a number
+                // Bigint ends with a n (ex 560n) and we dont want that
+                var sharedsecret = Number(sharedsecretB);
+                // Give proper value to text box
+                document.getElementById("result").textContent = ("Result: " + sharedsecret);
+                // Unhide the result
+                document.getElementById("result").hidden = '';
+                // Hide the input boxes and their instructions
+                document.getElementById("privatenotice").hidden = 'none';
+                document.getElementById("privatenumber").hidden = 'none';
+                document.getElementById("publicnotice").hidden = 'none';
+                document.getElementById("publicnumber").hidden = 'none';
+                // Hide the header
+                document.getElementById("h3").hidden = 'none';
+                // Unhide the next steps
+                document.getElementById("step0").hidden = '';
+                document.getElementById("step1").hidden = '';
+                document.getElementById("step2").hidden = '';
+                document.getElementById("step3").hidden = '';
+                // Hide the line breaks
+                document.getElementById("lines1").hidden = 'none';
+                document.getElementById("lines2").hidden = 'none';
+                // Remove the encrypt button
+                document.getElementById("encryptbutton").hidden = 'none';
+                // Unhide the to the encryptor button
+                document.getElementById("totheencryptor").hidden = '';
+
+            } else {
+                // Log if the number is not valid or something strange happened
+                console.log("Not a valid number");
+            }
+
+        }
+
+    </script>
+</html>

@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <!--Make the page phone friendly-->
+        <meta name = "viewport" content = "width = device-width">
+        <h1>Project Encryption</h1> <h4>© Braden Wagner 2024</h4>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+
+    <body>
+        <!--Buttons to take the user to the pages I have made.-->
+        <button type="button" onclick=redirect("Encryptor.html")>Encrypt something!</button>
+        <br> <br>
+        <button type="button" onclick=redirect("Stepone.html")>Securely Generate Key, Step 1</button>
+        <br> <br>
+        <button type="button" onclick=redirect("Steptwo.html")>Securely Generate Key, Step 2</button>
+        <br>
+        
+    </body>
+    <script>
+        function redirect(url) {
+        // Takes a url as a parameter and redirects the page to that url
+        // A input of "Home.html" in the "EncryptionProject/" folder redirects on the codehs.me site to 
+        // bradenwagner.codehs.me/EncryptionProject/Home.html
+            window.location.href=url;
+        }
+    </script>
+</html>

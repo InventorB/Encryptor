@@ -1,0 +1,137 @@
+<html>
+    <!--Head is where headers and mobile config is stored-->
+    <head>
+        <!--Makes viewing this page on mobile do better-->
+        <meta name = "viewport" content = "width = device-width">
+        <!--Header-->
+        <h1>Secure Key Generator</h1>
+        <!--Subheader-->
+        <h2 id="h2">Step One</h2>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <!--All the elements are definied in the body below-->
+    <body>
+        <!--Introduction text-->
+        <p id="generaltext">Enter a random number on the line below. THEN REMEMBER IT!<br> Keep this very secure.</p> 
+        <b> THE SECURITY OF THIS PROGRAM DEPENDS ON IT!<br> </b>
+        <!--Tectbox that the number will be pulled from-->
+        <textarea rows = "1" cols = "20" id="number" onclick=resetfield("number");>Enter that here.</textarea>
+        <br>
+        <!--Button, when clicked runs encrypt() function-->
+        <button type="button" id="encryptbutton" onclick=encrypt();>Encrypt</button>
+        <!--All of the items below are hidden at the start, and will later be unhidden when needed.-->
+        <!--Stores the private number later-->
+        <p hidden id = "privatenumber";>Result:</p>
+        <!--Notice about the private number-->
+        <p hidden id = "privatenotice";>Note this down somewhere. If this is compromised, then so is everything else. You will need this later to retrieve the shared secret number.</p>
+        <!--Used to hold the public later later-->
+        <p hidden id = "publicnumber";>dormant for now</p>
+        <!--Notice about the public number-->
+        <p hidden id = "publicnotice";> Share this with the other person. This is useless without one of your private numbers.</p>
+        <!-- Notice on step two-->
+        <p hidden id = "stepnotice";> Once both of you have completed this step, move to step two.</p>
+        <!--Eqivalent of a hidden variable, used to store unconcatenated public number for sendlink() function-->
+        <p hidden id = "publicnumberforshare";>0</p>
+        <!--Define the button to send to friends-->
+        <button hidden type="button" id="sendtofriend" onclick=sendlink(document.getElementById('publicnumberforshare').textContent);>Message this code to someone!</button>
+        <button hidden type="button" id = "steptwobutton" onclick=redirect("Steptwo.html");>To Step Two</button>
+        <!--Line breaks-->
+        <br>
+        <br>
+        <!--Button to redirect to home-->
+        <button type="button" onclick=redirect("Home.html");>Home</button>
+        
+    </body>
+    <script> 
+    function redirect(url) {
+        // Takes a url as a parameter and redirects the page to that url
+        // A input of "Home.html" in the "EncryptionProject/" folder redirects on the codehs.me site to 
+        // bradenwagner.codehs.me/EncryptionProject/Home.html
+        window.location.href=url;
+    }
+    function encrypt() {
+        // Takes the number, and does the math (base)^num MOD 99999. Changes HTML content to show result.
+        //
+        // ---------------------------------------
+        //
+        // BigInts only work with other BigInts
+        // Make the modulus a BigInt so that we can multiply it to very large numbers
+        var MODULUS_VALUE = BigInt(99999);
+        // Make the base also a BigInt
+        var BASE=BigInt(5);
+        // Define multiplied for the end
+        var multiplied;
+        // Green is the internal name for this
+        var green;
+        // Get the string from the textbox
+        var private_str = document.getElementById('number').value;
+        // Convert it to a number
+        var private_int = Number(private_str)
+        // Upgrade it to a BigInt to be up to very big
+        private_bint = BigInt(private_int);
+        // If the number is valid, then work on it
+        if (private_int > 1 && private_int <= 99999) {
+            // Multiply it by their number
+            multiplied = BASE ** private_bint;
+            // Divide it by the modulus value
+            // Green is the internal name for the 
+            green = multiplied % MODULUS_VALUE
+            // Variable that holds the content of the public number
+            var replace = ("Your public number is: " + green);
+            // Make the public number element
+            document.getElementById('publicnumber').textContent = replace;
+            // Store the private int in a variable
+            var privateinttext= ("Your private number is: " + private_int);
+            // Fill the "publicnumberforshare" element for later use
+            document.getElementById('publicnumberforshare').textContent = green;
+            // Fill the private number for later use
+            document.getElementById('privatenumber').textContent = privateinttext;
+            // Hide the text box used to take in the number
+            document.getElementById("number").style.display = 'none';
+            // Hide the encrypt button
+            document.getElementById("encryptbutton").style.display = 'none';
+            // Hide the text warning above
+            document.getElementById("generaltext").style.display = 'none';
+            // Hide the Step One Text
+            document.getElementById("h2").hidden = 'none';
+            // Unhide the public and private numbers, and their notices
+            document.getElementById("privatenumber").hidden = '';
+            document.getElementById("publicnumber").hidden = '';
+            document.getElementById("privatenotice").hidden = '';
+            document.getElementById("publicnotice").hidden = '';
+            document.getElementById("stepnotice").hidden = '';
+            // Unhide the button to send the number to a friend
+            document.getElementById("sendtofriend").hidden = '';
+            document.getElementById("steptwobutton").hidden = '';
+
+
+        } else if (private_int >= 99999) {
+           // else if above warns the user if the number is too big
+            alert("Due to browser integer limitations, your code can't be bigger than 99999. Please input a smaller number.");
+        } else {
+            // Code comes here if it is not a valid number, of something weird happened
+            // Shows a popup warning the user if the code is bad
+            alert("Not valid");
+        }
+    }
+    function resetfield(number) {
+        // Called when a user clicks on a box
+        // If the number box contains the original text on call, clear it
+        if (document.getElementById('number').value == "Enter that here.") {
+        // Clear the box if condition is true
+        document.getElementById('number').value = ""
+        }
+        // Otherwise do nothing
+    }
+    function sendlink(number) {
+        // Open this message straight in messages.
+		// Only confirmed compatibility on Mac, Ipad, and Iphone
+		// Android seems to not work this way
+        // Define the url
+        var url= ("sms://?&body=Public Number: " + number);
+        // Call the redirect function to open the url
+        redirect(url);
+        }
+    </script>
+
+</html>
