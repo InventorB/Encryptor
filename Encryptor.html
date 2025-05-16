@@ -16,14 +16,16 @@
 	<button id="copyBtn" onclick=startencrypt();>Run encryptor</button>
 	<!-- Some of the elements here are hidden, so that they can be used later once i have the information-->
 	<p hidden id = "originalmessage";>Input:</p>
-	<textarea hidden rows = "6" cols = "40" id="startbox">dormant for now</textarea>
+	<textarea hidden rows = "6" cols = "32" id="startbox">dormant for now</textarea>
 	<p hidden id = "result";>Result:</p>
-	<textarea hidden rows = "6" cols = "40" id="resultbox">dormant for now</textarea>
+	<textarea hidden rows = "6" cols = "32" id="resultbox">dormant for now</textarea>
 	<p hidden id = "resultinternal";>Result:</p>
 	<br> <br>
-	<button hidden id="copy" onclick=copy();>Copy result to clipboard</button>
+	<button hidden id="copy" onclick=copy();>Copy text</button>
+	<button hidden id="copyurl" onclick=copyURL();>Copy filled URL</button>
 	<br> <br>
-	<button hidden id="sharetofriend" onclick=message();>Message the result</button>
+	<button hidden id="sharetofriend" onclick=message();>Message text</button>
+	<button hidden id="sharetofriendurl" onclick=messageURL();>Message filled URL</button>
 	<br>
 	<br>
 	<button hidden id="restart" onclick=redirect("Encryptor.html");>Encrypt something else</button>

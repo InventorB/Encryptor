@@ -18,7 +18,8 @@
 
       function encrypt() {
 			// Get the multiplier
-		var multiplier = Number(document.getElementById('numId').value)
+			window.history.replaceState({}, document.title, window.location.pathname);
+			var multiplier = Number(document.getElementById('numId').value)
 		// List of characters that work in the encryptor.
 		var letters = ["A","a","B","b","C","c","D","d","E","e","F","f","G","g","H","h","I","i","J","j","K","k","L","l","M","m","N","n","O","o","P","p","Q","q","R","r","S","s","T","t","U","u","V","v","W","w","X","x","Y","y","Z","z","0","1","2","3","4","5","6","7","8","9","!",",",".","(",")","?","$","#","@",":",";","‘","’","/","+","-","*","'"," "]
 		var numbers = []
@@ -129,7 +130,9 @@
 		document.getElementById("originalmessage").hidden = '';
 		// Unhide the buttons
 		document.getElementById("copy").hidden = '';
+		document.getElementById("copyurl").hidden = '';
 		document.getElementById("sharetofriend").hidden = '';
+		document.getElementById("sharetofriendurl").hidden = '';
 		document.getElementById("restart").hidden = '';
 	}
 	function copy() {
@@ -144,6 +147,27 @@
 			.catch(err => {
 			alert('Error in copying text: ', err);
 			});
+	}
+	function copyURL() {
+		// When called get the result from a hidden html element, and then store it in the clipboard
+		// resultinternal is a hidden element to store the data, and acts like a global variable
+		text = window.location.href + "?query=" + document.getElementById("resultinternal").textContent;
+		console.log("Recieved text: " + text);
+		navigator.clipboard.writeText(text)
+			.then(() => {
+				alert("Sucessfully copied text. Paste in any box by double tapping and then clicking paste.")
+			})
+			.catch(err => {
+			alert('Error in copying text: ', err);
+			});
+	}
+	function messageURL() {
+		// Open the Imessage send prompt for easier sending.
+		// Only confirmed compatibility on Mac, Ipad, and Iphone
+		// Android seems to not work this way
+		var result = window.location.href + "?query=" + document.getElementById("resultinternal").textContent;
+		var url = ("sms://?&body=" + result);
+        redirect(url); 
 	}
 	function message() {
 		// Open the Imessage send prompt for easier sending.
