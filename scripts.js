@@ -11,8 +11,9 @@
 		function startencrypt() {
 			try {
 				encrypt()
-			} catch {
+			} catch (err){
 				alert("Something broke (invalid character?). Try something else.")
+				console.error(err);
 			}
 		}
 
@@ -23,8 +24,7 @@
 		// List of characters that work in the encryptor.
 		var letters = ["A","a","B","b","C","c","D","d","E","e","F","f","G","g","H","h","I","i","J","j","K","k","L","l","M","m","N","n","O","o","P","p","Q","q","R","r","S","s","T","t","U","u","V","v","W","w","X","x","Y","y","Z","z","0","1","2","3","4","5","6","7","8","9","!",",",".","(",")","?","$","#","@",":",";","‘","’","/","+","-","*","'"," "]
 		var numbers = []
-		var end_msg
-		var text = ""
+		var end_msg;
 		// Make another list with numbers (11,12,13,14,15,16,17,18,19,21,22,23)
 		for (var i=1; i<=9; i++) {
 			for (var ii = 1; ii <= 9;ii++) {
@@ -36,7 +36,6 @@
 		console.log(numbers);		
 		var input = document.getElementById("textId").value
 		document.getElementById("startbox").value = input
-		var input_string = String(input)
 		var output = "~"
 		var validMultiplier
 		Number(multiplier)
@@ -89,7 +88,7 @@
 			output = "~" + String(output)
 		}
 		document.getElementById('resultinternal').textContent = output;
-		resultpage()
+		resultpage(end_msg);
         }
 	}
 	function resetfield(id) {
@@ -111,7 +110,7 @@
             console.log("Field not changed");
             }
         }
-	function resultpage() {
+	function resultpage(end_msg) {
 		// Function that cleans up HTML and displays result from encrypt function.
 		document.getElementById("numId").hidden = 'none';
 		document.getElementById("textId").hidden = 'none';
@@ -129,10 +128,14 @@
 		// Unhide the original message element that was filled previously
 		document.getElementById("originalmessage").hidden = '';
 		// Unhide the buttons
-		document.getElementById("copy").hidden = '';
-		document.getElementById("copyurl").hidden = '';
-		document.getElementById("sharetofriend").hidden = '';
-		document.getElementById("sharetofriendurl").hidden = '';
+		console.log(end_msg);
+		if(end_msg == "Encrypted") {
+			console.log("Showing all elements");
+			document.getElementById("copy").hidden = '';
+			document.getElementById("copyurl").hidden = '';
+			document.getElementById("sharetofriend").hidden = '';
+			document.getElementById("sharetofriendurl").hidden = '';
+		}
 		document.getElementById("restart").hidden = '';
 	}
 	function copy() {
@@ -165,7 +168,7 @@
 		// Open the Imessage send prompt for easier sending.
 		// Only confirmed compatibility on Mac, Ipad, and Iphone
 		// Android seems to not work this way
-		var result = window.location.href + "?query=" + document.getElementById("resultinternal").textContent;
+		var result = window.location.href + "?decrypt=" + document.getElementById("resultinternal").textContent.slice(1);
 		var url = ("sms://?&body=" + result);
         redirect(url); 
 	}
@@ -186,12 +189,19 @@
 	window.addEventListener("load", function() {
 		const queryString = window.location.search;
 		const params = new URLSearchParams(queryString);
-		const query = params.get("query");
-		console.log("Query:" + query);
-		if(query){
-		document.getElementById("textId").value = query;
-		console.log("Set Query:" + query);
+		const decrypt = params.get("decrypt");
+		const code = params.get("code");
+		console.log("Query:" + decrypt);
+		if(decrypt){
+		document.getElementById("textId").value = "~"+ decrypt;
+		console.log("Set Query:" + decrypt);
 		} else {
 			document.getElementById("textId").value = "Type something secret here!";
+		}
+		if(code) {
+			document.getElementById("numId").value = code;
+			console.log("Recieved Code:" + code);
+		} else {
+			document.getElementById("numId").value = "Encryptor Code";
 		}
 	});
