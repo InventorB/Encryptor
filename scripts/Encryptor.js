@@ -168,7 +168,7 @@
 		// Open the Imessage send prompt for easier sending.
 		// Only confirmed compatibility on Mac, Ipad, and Iphone
 		// Android seems to not work this way
-		var result = window.location.href + "?decrypt=" + document.getElementById("resultinternal").textContent.slice(1);
+		var result = "New Encrypted Message: " + window.location.href + "?decrypt=" + document.getElementById("resultinternal").textContent.slice(1);
 		var url = ("sms://?&body=" + result);
         redirect(url); 
 	}
