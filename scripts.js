@@ -154,7 +154,7 @@
 	function copyURL() {
 		// When called get the result from a hidden html element, and then store it in the clipboard
 		// resultinternal is a hidden element to store the data, and acts like a global variable
-		text = window.location.href + "?decrypt=" + document.getElementById("resultinternal").textContent;
+		text = window.location.href + "?decrypt=" + document.getElementById("resultinternal").textContent.slice(1);
 		console.log("Recieved text: " + text);
 		navigator.clipboard.writeText(text)
 			.then(() => {
