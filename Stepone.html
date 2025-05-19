@@ -18,7 +18,7 @@
         <textarea rows = "1" cols = "20" id="number" onfocus=resetfield("number");>Enter that here.</textarea>
         <br>
         <!--Button, when clicked runs encrypt() function-->
-        <button type="button" id="encryptbutton" onfocus=encrypt();>Encrypt</button>
+        <button type="button" id="encryptbutton" onclick=encrypt();>Encrypt</button>
         <!--All of the items below are hidden at the start, and will later be unhidden when needed.-->
         <!--Stores the private number later-->
         <p hidden id = "privatenumber";>Result:</p>
@@ -33,7 +33,8 @@
         <!--Eqivalent of a hidden variable, used to store unconcatenated public number for sendlink() function-->
         <p hidden id = "publicnumberforshare";>0</p>
         <!--Define the button to send to friends-->
-        <button hidden type="button" id="sendtofriend" onclick=sendlink(document.getElementById('publicnumberforshare').textContent);>Message this code to someone!</button>
+        <button hidden type="button" id="sendtofriend" onclick=sendlink(document.getElementById('publicnumberforshare').textContent);>Message code</button>
+        <button hidden id="sharetofriendurl" onclick=messageURL();>Message filled URL</button>
         <button hidden type="button" id = "steptwobutton" onclick=redirect("Steptwo.html");>To Step Two</button>
         <!--Line breaks-->
         <br>
@@ -43,6 +44,7 @@
         
     </body>
     <script> 
+    var publicnumber = 0;
     function redirect(url) {
         // Takes a url as a parameter and redirects the page to that url
         // A input of "Home.html" in the "EncryptionProject/" folder redirects on the codehs.me site to 
@@ -77,6 +79,7 @@
             // Green is the internal name for the 
             green = multiplied % MODULUS_VALUE
             // Variable that holds the content of the public number
+            publicnumber = green;
             var replace = ("Your public number is: " + green);
             // Make the public number element
             document.getElementById('publicnumber').textContent = replace;
@@ -102,7 +105,8 @@
             document.getElementById("stepnotice").hidden = '';
             // Unhide the button to send the number to a friend
             document.getElementById("sendtofriend").hidden = '';
-            document.getElementById("steptwobutton").hidden = '';
+            document.getElementById("sendtofriend").hidden = '';
+            document.getElementById("sharetofriendurl").hidden = '';
 
 
         } else if (private_int >= 99999) {
@@ -132,6 +136,22 @@
         // Call the redirect function to open the url
         redirect(url);
         }
+    function messageURL() {
+    // Open the Imessage send prompt for easier sending.
+    // Only confirmed compatibility on Mac, Ipad, and Iphone
+    // Android seems to not work this way
+
+    const { origin, pathname } = window.location;
+
+// Remove the last part of the path (the filename)
+    const pathOnly = pathname.substring(0, pathname.lastIndexOf('/'));
+
+    const fullPath = origin + pathOnly;
+    var result = fullPath + "/Steptwo.html" + "?public=" + publicnumber;
+    var url = ("sms://?&body=" + result);
+    redirect(url); 
+    }
     </script>
+
 
 </html>
