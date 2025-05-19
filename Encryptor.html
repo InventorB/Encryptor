@@ -13,9 +13,9 @@
   <h1>Braden's Encryptor</h1>
   <header>
 	  <!-- All the html elements-->
-    <textarea rows = "6" cols = "32" id="textId" onclick=resetfield("textId");>Type something secret here!</textarea>
+    <textarea rows = "6" cols = "32" id="textId" onfocus=resetfield("textId");>Type something secret here!</textarea>
 	<br>
-	<textarea rows = "1"  cols = 19; id="numId" onclick=resetfield("numId");>Encryptor Code</textarea>
+	<textarea rows = "1"  cols = 19; id="numId" onfocus=resetfield("numId");>Encryptor Code</textarea>
 	<button id="copyBtn" onclick=startencrypt();>Run encryptor</button>
 	<!-- Some of the elements here are hidden, so that they can be used later once i have the information-->
 	<p hidden id = "originalmessage";>Input:</p>

@@ -19,11 +19,11 @@
         <!--Asks user for private number in box-->
         <p id = "privatenotice";>Please input your private number-THAT YOU INPUTTED AND MEMORIZED in step 1.</p>
         <!--Box to fill private number-->
-        <textarea rows = "1" cols = "22" id="privatenumber" onclick=resetfield("privatenumber");>YOUR PRIVATE NUMBER.</textarea>
+        <textarea rows = "1" cols = "22" id="privatenumber" onfocus=resetfield("privatenumber");>YOUR PRIVATE NUMBER.</textarea>
         <!--Asks user to fill public number.-->
         <p id = "publicnotice";>Please input THEIR public number-THE ONE THAT THEY SENT TO YOU. DON'T INPUT YOURS!</p>
         <!--Box for public number-->
-        <textarea rows = "1" cols = "22" id="publicnumber" onclick=resetfield("publicnumber");>THEIR PUBLIC NUMBER</textarea>
+        <textarea rows = "1" cols = "22" id="publicnumber" onfocus=resetfield("publicnumber");>THEIR PUBLIC NUMBER</textarea>
         <br>
         <!--Stores result-->
         <p hidden id = "result";>dormant for now</p>
@@ -43,11 +43,17 @@
        
     </body>
     <script> 
+    var sharedsecret = 0;
     function redirect(url) {
         // Takes a url as a parameter and redirects the page to that url
         // A input of "Home.html" in the "EncryptionProject/" folder redirects on the codehs.me site to 
         // bradenwagner.codehs.me/EncryptionProject/Home.html
-        window.location.href=url;
+        if(sharedsecret != 0) {
+            url = url + "?code=" + sharedsecret;
+            window.location.href = url;
+        } else {
+            window.location.href = url;
+        }
     }
     function resetfield(number) {
         // Alphabet is the internal name for the text if the box should be cleared.
@@ -80,7 +86,7 @@
                 var sharedsecretB = BigInt(stepone) % MODULUS;
                 // Make sharedsecret a number so it is just a number
                 // Bigint ends with a n (ex 560n) and we dont want that
-                var sharedsecret = Number(sharedsecretB);
+                sharedsecret = Number(sharedsecretB);
                 // Give proper value to text box
                 document.getElementById("result").textContent = ("Result: " + sharedsecret);
                 // Unhide the result

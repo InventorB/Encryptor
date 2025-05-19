@@ -145,7 +145,7 @@
 		console.log("Recieved text: " + text);
 		navigator.clipboard.writeText(text)
 			.then(() => {
-				alert("Sucessfully copied text. Paste in any box by double tapping and then clicking paste.")
+				//alert("Sucessfully copied text. Paste in any box by double tapping and then clicking paste.")
 			})
 			.catch(err => {
 			alert('Error in copying text: ', err);
@@ -154,11 +154,11 @@
 	function copyURL() {
 		// When called get the result from a hidden html element, and then store it in the clipboard
 		// resultinternal is a hidden element to store the data, and acts like a global variable
-		text = window.location.href + "?query=" + document.getElementById("resultinternal").textContent;
+		text = window.location.href + "?decrypt=" + document.getElementById("resultinternal").textContent;
 		console.log("Recieved text: " + text);
 		navigator.clipboard.writeText(text)
 			.then(() => {
-				alert("Sucessfully copied text. Paste in any box by double tapping and then clicking paste.")
+				//alert("Sucessfully copied text. Paste in any box by double tapping and then clicking paste.")
 			})
 			.catch(err => {
 			alert('Error in copying text: ', err);
@@ -204,4 +204,15 @@
 		} else {
 			document.getElementById("numId").value = "Encryptor Code";
 		}
+		document.getElementById("textId").addEventListener('keydown', (e) => {
+			console.log("Typing...")
+			if (e.key === 'Enter') {
+				startencrypt();
+			}
+		});
+		document.getElementById("numId").addEventListener('keydown', (e) => {
+			if (e.key === 'Enter') {
+				startencrypt();
+			}
+		});
 	});

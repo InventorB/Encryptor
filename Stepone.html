@@ -15,10 +15,10 @@
         <p id="generaltext">Enter a random number on the line below. THEN REMEMBER IT!<br> Keep this very secure.</p> 
         <b> THE SECURITY OF THIS PROGRAM DEPENDS ON IT!<br> </b>
         <!--Tectbox that the number will be pulled from-->
-        <textarea rows = "1" cols = "20" id="number" onclick=resetfield("number");>Enter that here.</textarea>
+        <textarea rows = "1" cols = "20" id="number" onfocus=resetfield("number");>Enter that here.</textarea>
         <br>
         <!--Button, when clicked runs encrypt() function-->
-        <button type="button" id="encryptbutton" onclick=encrypt();>Encrypt</button>
+        <button type="button" id="encryptbutton" onfocus=encrypt();>Encrypt</button>
         <!--All of the items below are hidden at the start, and will later be unhidden when needed.-->
         <!--Stores the private number later-->
         <p hidden id = "privatenumber";>Result:</p>
