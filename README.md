@@ -1,8 +1,12 @@
 # Encryptor
 
-Encryptor is a simple symmetric key text encryption tool implemented using JavaScript and HTML. It features a basic encryption/decryption method and incorporates a Diffie-Hellman key exchange to securely generate a shared secret key. This shared secret key is then used for encrypting and decrypting text messages.
 
-[https://github.com/InventorB/Encryptor](https://github.com/InventorB/Encryptor)
+Encryptor is a simple symmetric key text encryption tool implemented using JavaScript and HTML. It features a basic encryption/decryption method and incorporates a Diffie-Hellman key exchange to securely generate a shared secret key. This shared secret key is then used for encrypting and decrypting text messages.
+<p align="center" >
+<img width="500" height="384" alt="image" src="https://github.com/user-attachments/assets/f6a54bb1-82b1-40e8-868c-7aee44216ec7" />
+
+</p>
+
 
 ## Features and Functionality
 
