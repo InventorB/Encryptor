@@ -1,5 +1,5 @@
 # Encryptor
-
+View the demo [here](https://encryptor.bwagner.dev/Home.html)
 
 Encryptor is a simple symmetric key text encryption tool implemented using JavaScript and HTML. It features a basic encryption/decryption method and incorporates a Diffie-Hellman key exchange to securely generate a shared secret key. This shared secret key is then used for encrypting and decrypting text messages.
 <p align="center" >
@@ -10,12 +10,12 @@ Encryptor is a simple symmetric key text encryption tool implemented using JavaS
 
 ## Features and Functionality
 
-*   **Text Encryption/Decryption:** Encrypts and decrypts text messages using a symmetric key algorithm.  The script uses a substitution cipher coupled with multiplication for over 1 million total possibilities. Someone determined could crack the code, but it's enough to protect a casual message.
+*   **Encryption/Decryption Functionality:** Encrypts and decrypts text messages using a symmetric key algorithm.  The script uses a substitution cipher coupled with multiplication for over 1 million total possibilities. Someone determined could crack the code, but it's enough to protect a casual message.
 *   **Diffie-Hellman Key Exchange:** Securely generates a shared secret key between two parties using the Diffie-Hellman algorithm. This is implemented across `Stepone.html` and `Steptwo.html`.
-*   **Simple Interface:** Provides a simple HTML-based user interface for easy encryption and decryption.
+*   **Simple, Mobile Friendly Interface:** Provides a simple HTML-based user interface for easy encryption and decryption. Laptop, tablet, phone all work!
 *   **URL Sharing:** Allows sharing encrypted messages and keys via URL parameters. No more copying keys!
-*   **Message Sharing:** Supports direct message sharing (SMS) of encrypted text and URLs for easy sharing.
-*   **Key Validation:** Basic validation to ensure keys are within an acceptable range.
+*   **Message Sharing:** Easy links make sharing over SMS/iMessage a walk in the park.
+*   **Key Validation:** Errors are alerted to the user.
 
 ## Technology Stack
 
@@ -25,7 +25,7 @@ Encryptor is a simple symmetric key text encryption tool implemented using JavaS
 
 ## Prerequisites
 
-This project runs on HTML, CSS, and JS files. You can open files from the browser, or host on any static web server, like I do with Caddy.
+This project runs on HTML, CSS, and JS files. You can open files from the browser, or host on any static web server, like I do with Caddy or Github Pages.
 
 ## Usage Guide
 
@@ -38,14 +38,14 @@ This project runs on HTML, CSS, and JS files. You can open files from the browse
 5.  The encrypted (or decrypted) text will appear in the "Result" text area.
 6.  You can copy the encrypted text using the "Copy text" button, or copy a URL that includes the encrypted text using the "Copy filled URL" button.
 
-**Encryption Process:**
+**Encryption:**
 
 *   The `encrypt()` function in `scripts/Encryptor.js` performs the encryption.
 *   It converts the input text to a numeric representation using a predefined character mapping.
 *   This numeric representation is then multiplied by the user-provided key.
 *   The result is prefixed with a "~" to signify an encrypted message.
 
-**Decryption Process:**
+**Decryption:**
 
 *   The `encrypt()` function in `scripts/Encryptor.js` also handles decryption.
 *   If the input text starts with "~", it's treated as encrypted.
